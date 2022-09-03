@@ -1,10 +1,23 @@
-import json
+
+import traceback
+
+import pydantic
+
+from wiki import Wiki, WikiException
 
 
-def hello(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully!",
-        "input": event,
-    }
+class InputModel(pydantic.BaseModel):
+    title: str
 
-    return {"statusCode": 200, "body": json.dumps(body)}
+
+def hello(event: dict, context):
+    try:
+        event = InputModel(**event)
+        wiki = Wiki()
+        return wiki.query(event.title)
+    except pydantic.ValidationError as e:
+        return {"error": str(e)}
+    except WikiException as e:
+        return str(e)
+    except Exception as e:
+        return {"error": traceback.format_exception(e)}
