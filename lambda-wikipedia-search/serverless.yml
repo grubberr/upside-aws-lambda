@@ -1,4 +1,4 @@
-service: upside-aws-lambda
+service: lambda-wikipedia-search
 
 frameworkVersion: '3'
 
@@ -7,8 +7,8 @@ provider:
   runtime: python3.8
 
 functions:
-  hello:
-    handler: handler.hello
+  lambda_handler:
+    handler: handler.lambda_handler
 
 plugins:
   - serverless-python-requirements

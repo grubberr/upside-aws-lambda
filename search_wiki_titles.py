@@ -5,7 +5,7 @@ import boto3
 
 
 REGION = "us-east-1"
-FUNCTION_NAME = "upside-aws-lambda-dev-hello"
+FUNCTION_NAME = "lambda-wikipedia-search-dev-lambda_handler"
 
 titles = [
     "Washington,_D.C.",

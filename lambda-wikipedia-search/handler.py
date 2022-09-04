@@ -10,7 +10,7 @@ class InputModel(pydantic.BaseModel):
     title: str
 
 
-def hello(event: dict, context):
+def lambda_handler(event: dict, context):
     try:
         event = InputModel(**event)
         wiki = Wiki()
