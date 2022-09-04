@@ -12,10 +12,11 @@ def main(filename):
         for line in fp:
             data.append(json.loads(line))
 
-    df = pandas.json_normalize(data)
-    df = df[df["number_updates_last_month"] <= 2]
-    print("The sum of the updates:", df["number_updates_last_month"].sum())
-    print("The mean value of the updates:", df["number_updates_last_month"].mean())
+    if data:
+        df = pandas.json_normalize(data)
+        df = df[df["number_updates_last_month"] <= 2]
+        print("The sum of the updates:", df["number_updates_last_month"].sum())
+        print("The mean value of the updates:", df["number_updates_last_month"].mean())
 
 
 if __name__ == "__main__":
