@@ -42,7 +42,7 @@ functions:
 After successful deployment, you can invoke the deployed function by using the following command:
 
 ```bash
-serverless invoke --function hello
+serverless invoke --function lambda_handler --data '{"title": "Python_(programming_language)"}'
 ```
 
 Which should result in response similar to the following:
@@ -59,7 +59,10 @@ Which should result in response similar to the following:
 You can invoke your function locally by using the following command:
 
 ```bash
-serverless invoke local --function hello
+python3 -m venv .venv
+. .venv/bin/activate
+pip3 install -r requirements.txt
+serverless invoke local --function lambda_handler --data '{"title": "Python_(programming_language)"}'
 ```
 
 Which should result in response similar to the following:
