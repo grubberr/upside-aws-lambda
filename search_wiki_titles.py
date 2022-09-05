@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import json
+import logging
+
 import boto3
 
 
-REGION = "us-east-1"
 FUNCTION_NAME = "lambda-wikipedia-search-dev-lambda_handler"
 
 titles = [
@@ -21,7 +22,8 @@ titles = [
     "Java (programming language)"
 ]
 
-client = boto3.client("lambda", region_name=REGION)
+client = boto3.client("lambda")
+
 
 def search_wiki(title):
     payload = json.dumps({"title": title}).encode("utf-8")
@@ -31,14 +33,20 @@ def search_wiki(title):
         InvocationType="RequestResponse",
         Payload=payload)
 
-    return json.loads(response["Payload"].read())
+    response_payload = response["Payload"].read()
+    if response.get("FunctionError") == "Unhandled":
+        logging.error(response_payload)
+        return {}
+    return json.loads(response_payload)
+
 
 def main():
     for title in titles:
         response = search_wiki(title)
-        if response["found"]:
+        if response.get("found"):
             response.pop("found")
             print(json.dumps(response))
+
 
 if __name__ == "__main__":
     main()
