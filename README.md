@@ -1,9 +1,6 @@
 # Search Wiki
 The scripts which demonstrate using lambda function [lambda-wikipedia-search](https://github.com/grubberr/upside-aws-lambda/tree/main/lambda-wikipedia-search).
-The `search_wiki_titles.py` script searches multiple article titles on Wikipedia and returns 2 numbers for every article:
-  1. `latest_update_time` - last time in UTC when the article was updated.
-  2. `number_updates_last_month` - how many times the article was updated in the current month.
-
+The `search_wiki_titles.py` searches multiple article titles on Wikipedia and returns JSON statistic results for every title.
 The `statistics.py` takes the result from the previous script and calculates
 the sum of the updates for all articles, and the mean value of the updates for all articles.
 
